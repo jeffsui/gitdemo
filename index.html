@@ -12,20 +12,29 @@
     <h1>Hello Git!</h1>
     <script>
         //每隔一秒打印一个数字,打印到10退出
-        let number = 0;
+        // counter()和doCounter()形成作用域嵌套
+        //通过doCounterFn间接调用doCounter时,虽然doCounterFn作用域链上并不存在number变量
+        // ,但是doCounterFn被执行时,仍然能够访问该变量。
+        //这样就形成了闭包
         function counter() {
-            number += 1;
-            return number;
-        }
-        const myinter = setInterval(() => {
-            if (number === 10) {
-                //当数字等于10,退出定时器
-                clearInterval(myinter);
-                console.log("done");
-                return;
+            let number = 0;
+            function doCounter() {
+                if (number === 10) {
+                    //当数字等于10,退出定时器
+                    clearInterval(myinter);
+                    console.log("done");
+                    return;
+                }
+                number += 1;
+                console.log(`${number}秒`);
             }
-            console.log(`${counter()}秒`);
+            return doCounter;
+        }
+        const doConterFn = counter()
+        const myinter = setInterval(() => {
+            doConterFn();
         }, 1000);
+
     </script>
 </body>
 
