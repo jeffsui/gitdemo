@@ -10,6 +10,23 @@
 
 <body>
     <h1>Hello Git!</h1>
+    <script>
+        //每隔一秒打印一个数字,打印到10退出
+        let number = 0;
+        function counter() {
+            number += 1;
+            return number;
+        }
+        const myinter = setInterval(() => {
+            if (number === 10) {
+                //当数字等于10,退出定时器
+                clearInterval(myinter);
+                console.log("done");
+                return;
+            }
+            console.log(`${counter()}秒`);
+        }, 1000);
+    </script>
 </body>
 
 </html>
